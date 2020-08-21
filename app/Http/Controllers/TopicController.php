@@ -30,4 +30,14 @@ class TopicController extends Controller
 		// 		"status" => 200
 		// 	]);
 	}
+
+	public function index() {
+		$topics = Topic::latestFirst()->paginate(3);
+		// dd(TopicResource::collection($topics));
+		return TopicResource::collection($topics);
+	}
+
+	public function show(Topic $topic) {
+		return new TopicResource($topic);
+	}
 }
