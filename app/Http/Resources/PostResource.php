@@ -22,8 +22,8 @@ class PostResource extends JsonResource
 			'created_at' => $this->created_at->diffForHumans(),
 			'updated_at' => $this->updated_at->diffForHumans(),
 			'user' => $this->user,
-			'like_count' => $this->likes->count(),
-			'users' => UserResource::collection($this->likes->pluck('user')),
+			// 'like_count' => $this->likes->count(),
+			// 'users' => UserResource::collection($this->likes->pluck('user')),
 		];
     }
 }

@@ -23,6 +23,11 @@ class TopicController extends Controller
 		$topic->save();
 		$topic->posts()->save($post);
 
-		return new TopicResource($topic);
+		return (new TopicResource($topic));
+		// return response()
+		// 	->json([
+		// 		"message" => "Topic creation has been successful",
+		// 		"status" => 200
+		// 	]);
 	}
 }
