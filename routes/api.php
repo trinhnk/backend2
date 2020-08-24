@@ -40,3 +40,18 @@ Route::group(['prefix' => 'topics'], function () {
 	// 	});
 	// });
 });
+
+Route::group(['prefix' => 'categories'], function () {
+	Route::post('/create', 'CategoryController@store')->middleware('auth:api');
+	Route::get('/', 'CategoryController@index');
+	Route::get('/{category}', 'CategoryController@show');
+	Route::patch('/{category}', 'CategoryController@update')->middleware('auth:api');
+	Route::get('/{category}/details', 'CategoryController@categoryDetails');
+});
+
+Route::group(['prefix' => 'articles'], function () {
+	Route::post('/create', 'ArticleController@store')->middleware('auth:api');
+	Route::get('/', 'ArticleController@index');
+	Route::get('/{article}', 'ArticleController@show');
+	// Route::patch('/{category}', 'CategoryController@update')->middleware('auth:api');
+});
