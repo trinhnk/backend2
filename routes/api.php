@@ -55,3 +55,15 @@ Route::group(['prefix' => 'articles'], function () {
 	Route::get('/{article}', 'ArticleController@show');
 	// Route::patch('/{category}', 'CategoryController@update')->middleware('auth:api');
 });
+
+Route::group(['prefix' => 'comments'], function () {
+	Route::post('/create', 'CommentController@store')->middleware('auth:api');
+	Route::get('/{article}', 'CommentController@showByArticle');
+	// Route::detete('/{comment}','CommentController@destroy')->middleware('auth:api');
+});
+
+Route::get('search', 'ItemSearchController@articleSearch');
+
+Route::get('ItemSearch', 'ItemSearchController@index');
+Route::post('ItemSearchCreate', 'ItemSearchController@create');
+

@@ -21,6 +21,7 @@ class ArticleController extends Controller
         $article->category_id  = $request->category_id;
         $article->status    = 1;
         $article->save();
+        // $article->addToIndex();
 
         return (new ArticleResource($article));
     }
