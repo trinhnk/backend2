@@ -27,7 +27,7 @@ class ArticleController extends Controller
     }
 
     public function index() {
-        $article = Article::latestFirst()->paginate(2);
+        $article = Article::latestFirst()->paginate(5);
         // dd($article->lastPage());
         return ArticleResource::collection($article);
     }
