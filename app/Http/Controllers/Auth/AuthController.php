@@ -20,9 +20,12 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            'role_id' => 3
         ]);
-        
+
+        $user->assignRole('member');
+
         if(!$token = JWTAuth::attempt($request->only(['email', 'password'])))
         {
             return abort(401);
@@ -62,7 +65,8 @@ class AuthController extends Controller
     // }
     public function user() {
         return [
-            'data' => JWTAuth::parseToken()->authenticate()
+            'data' => JWTAuth::parseToken()->authenticate(),
+            
         ];
     }
 

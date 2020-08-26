@@ -15,7 +15,7 @@ class StoreArticleRequest extends FormRequest
     {
         return [
             'title'         => 'required|max:100',
-            'slug'          => 'required|max:100|unique:articles,slug',
+            // 'slug'          => 'required|max:100|unique:articles,slug',
             'description'   => 'required|max:200',
             'content'       => 'required',
             'category_id'   => 'required',

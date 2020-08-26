@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Elasticquent\ElasticquentServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*

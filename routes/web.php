@@ -16,15 +16,29 @@
 // });
 use App\Item;
 use App\Article;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use App\User;
 
 Route::get('/', function () {
     // Article::createIndex($shards = null, $replicas = null);
 // 
     // Article::putMapping($ignoreConflicts = true);
 
-    Article::addAllToIndex();
+    // Article::addAllToIndex();
 
-    return view('welcome');
+    // $role = Role::create(['name' => 'member']);
+    // $permission = Permission::create(['name' => 'delete users']);
+    // $role = Role::findById(3);
+    // $permission = Permission::findById(1);
+    // foreach ($permissions as $key=>$permission) {
+        // $role->givePermissionTo($permission);
+    // }
+    $user = User::where('id', 1)->first();
+    // $user->assignRole('writer');
+
+    return $user->roles;
+    // return view('welcome');
 });
 
 // Route::get('/search', function() {

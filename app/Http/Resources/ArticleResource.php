@@ -15,6 +15,7 @@ class ArticleResource extends JsonResource
             'description'   => $this->description,
             'content'       => $this->content,
             'user'          => $this->user,
+            'category_id'   => $this->category_id,
             'category'      => $this->category,
             'status'        => $this->status,
             'created_at'    => $this->created_at->diffForHumans(),

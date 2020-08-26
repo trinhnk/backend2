@@ -42,24 +42,44 @@ Route::group(['prefix' => 'topics'], function () {
 });
 
 Route::group(['prefix' => 'categories'], function () {
-	Route::post('/create', 'CategoryController@store')->middleware('auth:api');
+	Route::group(['middleware' => ['auth:api', 'role:admin']], function () {
+		Route::post('/create', 'CategoryController@store');
+		Route::patch('/{category}', 'CategoryController@update');
+		Route::delete('/{category}', 'CategoryController@destroy');
+	});
 	Route::get('/', 'CategoryController@index');
 	Route::get('/{category}', 'CategoryController@show');
-	Route::patch('/{category}', 'CategoryController@update')->middleware('auth:api');
 	Route::get('/{category}/details', 'CategoryController@categoryDetails');
 });
 
 Route::group(['prefix' => 'articles'], function () {
-	Route::post('/create', 'ArticleController@store')->middleware('auth:api');
+	Route::group(['middleware' => ['auth:api', 'role:admin|writer']], function () {
+		Route::post('/create', 'ArticleController@store');
+		Route::patch('/{article}', 'ArticleController@update');
+		Route::delete('/{article}', 'ArticleController@destroy');
+	});
 	Route::get('/', 'ArticleController@index');
 	Route::get('/{article}', 'ArticleController@show');
-	// Route::patch('/{category}', 'CategoryController@update')->middleware('auth:api');
+	Route::get('/user/{user_id}', 'ArticleController@showByUser');
 });
 
 Route::group(['prefix' => 'comments'], function () {
 	Route::post('/create', 'CommentController@store')->middleware('auth:api');
 	Route::get('/{article}', 'CommentController@showByArticle');
 	// Route::detete('/{comment}','CommentController@destroy')->middleware('auth:api');
+	Route::group(['middleware' => ['auth:api', 'role:admin']], function () {
+		Route::delete('/{comment}', 'CommentController@destroy');
+	});
+});
+
+Route::group(['prefix' => 'listusers'], function () {
+	Route::group(['middleware' => ['auth:api', 'role:admin']], function () {
+		Route::get('/', 'UserController@all');
+		Route::get('/{user}', 'UserController@user');
+		Route::patch('/{user}', 'UserController@update');
+		Route::delete('/{user}', 'UserController@destroy');
+		Route::post('/create', 'UserController@register');
+	});
 });
 
 Route::get('search', 'ItemSearchController@articleSearch');

@@ -13,13 +13,13 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function store(StoreCategoryRequest $request) {
-		    $category = new Category;
+        $category = new Category;
         $category->title = $request->title;
-        $category->slug = $request->slug;
+        // $category->slug = $request->slug;
         $category->description = $request->description;
-		    $category->save();
+        $category->save();
 
-		    return (new CategoryResource($category));
+        return (new CategoryResource($category));
     }
     
     public function index() {
@@ -42,5 +42,11 @@ class CategoryController extends Controller
 	public function categoryDetails(Category $category) {
 		$article = Article::where('category_id', $category->id)->latestFirst()->paginate(10);
         return ArticleResource::collection($article);
+    }
+    
+    public function destroy(Category $category) {
+		// $this->authorize('destroy', $category);
+		$category->delete();
+		return response(null, 204);
 	}
 }
